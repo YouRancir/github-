@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>河北中学</title>
+<link href="{CSS_PATH}hezhong/css/news.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<div id="mybody">
+    	<div id="top">
+        	<div class="menu">
+            {template "content","nav"}
+            </div>
+        </div>
+      <div id="dh">
+            	<h1><a href="{APP_PATH}">河北中学首页</a> - {catpos($catid," - ")}</h1>
+            	<div id="search">
+            <input name="search" type="text" class="search_text" /><input name="searchbut" type="button" class="search_but" value=" " />
+            </div>
+          </div>
+        <div id="left">
+        	<div id="leftmenu">
+            	<h1>
+              <?php
+              $parentid = $CATEGORYS[$catid]['parentid']
+              ?>
+              {$CATEGORYS[$parentid]['catname']}
+              </h1>
+                <ul>
+                {pc:content action="category" catid="$parentid"}
+                {loop $data $val}
+                  <a href="{$val['url']}" {if $catid==$val['catid']}class="dq"{/if}>{$val['catname']}</a>
+                {/loop}
+                {/pc}
+              </ul>
+            </div>
+          <div id="pic">
+          {template "content","pic"}
+          </div>
+
+        </div>
+  </div>
+
+        <div id="right">
+        	<h1>{$catname}</h1>
+          <!-- {$CATEGORYS[$catid]['catname']} -->
+            <ul>
+                {pc:content order='inputtime DESC' catid="$catid" action="lists" num="10" page="$page"}
+                <!-- {pc:content action="lists" catid="$catid" num="1" page="pages"}
+                    {loop $data $val} -->
+                        <li>
+                          <a href="{$val['url']}">{str_cut($val['title'],70)}</a>
+                          <span class="newsdate">{date('Y-m-d',$val['inputtime'])}</span>
+                        </li>
+                  {/loop}
+                {/pc}
+            </ul>
+
+            <div id="page">{$pages}</div>
+<!--         	<div id="page"><span class="disabled">前一页</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=2" class="disabled">后一页
+        	 </a></div> -->
+        </div>
+
+      </div>
+
+	<div id="foot">
+ 		Copyright © 2008－2013 http://www.***.com All Rights Reserved   网站备案：冀ICP备00000000号
+	</div>
+</body>
+<script type="text/javascript" src="js/pic.js"></script>
+</html>
